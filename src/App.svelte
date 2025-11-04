@@ -123,10 +123,12 @@
   }
 
   main {
+    width: 100%;
     max-width: 900px;
     margin: 0 auto;
     padding: 2rem 1rem;
     min-height: 100vh;
+    box-sizing: border-box;
   }
 
   header {
@@ -182,12 +184,11 @@
     padding: 1rem 0;
     z-index: 10;
     width: 100%;
-    max-width: 900px;
+    box-sizing: border-box;
   }
 
   .search-input {
     width: 100%;
-    max-width: 100%;
     padding: 1rem;
     font-size: 1.1rem;
     border: 2px solid #333;
@@ -196,7 +197,6 @@
     color: #e0e0e0;
     box-sizing: border-box;
     transition: border-color 0.2s;
-    min-width: 0;
   }
 
   .search-input:focus {
@@ -216,6 +216,8 @@
 
   .results-container {
     min-height: 200px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .empty-state {
@@ -228,15 +230,19 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .result-item {
+    width: 100%;
     padding: 1rem;
     margin-bottom: 0.5rem;
     background-color: #1a1a1a;
     border: 1px solid #333;
     border-radius: 8px;
     transition: all 0.2s;
+    box-sizing: border-box;
   }
 
   .result-item:hover {
