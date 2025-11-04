@@ -76,7 +76,7 @@
         </div>
       {:else}
         <ul class="results-list">
-          {#each filteredItems as item (item.id)}
+          {#each filteredItems as item, index (index)}
             <li class="result-item">
               <div class="item-info">
                 <span class="item-name">{item.name}</span>
