@@ -78,29 +78,22 @@
         <ul class="results-list">
           {#each filteredItems as item, index (index)}
             <li class="result-item">
-              <div class="item-info">
-                <span class="item-name">{item.name}</span>
-                <span class="item-type">{item.type}</span>
+              <div class="item-header">
+                <div class="item-info">
+                  <span class="item-name">{item.name}</span>
+                  <span class="item-type">{item.type}</span>
+                </div>
+                <span class="reference-count" class:has-references={getReferenceDetails(item.id).count > 0}>
+                  {getReferenceDetails(item.id).count}×
+                </span>
               </div>
-              <div class="item-meta">
-                {#if getReferenceDetails(item.id).count > 0}
-                  <span
-                    class="reference-count has-references"
-                    title={getReferenceDetails(item.id).sources.join('\n')}
-                  >
-                    Referenced: {getReferenceDetails(item.id).count}×
-                    <span class="tooltip">
-                      {#each getReferenceDetails(item.id).sources as source}
-                        <div class="tooltip-item">{source}</div>
-                      {/each}
-                    </span>
-                  </span>
-                {:else}
-                  <span class="reference-count">
-                    Referenced: 0×
-                  </span>
-                {/if}
-              </div>
+              {#if getReferenceDetails(item.id).count > 0}
+                <div class="references">
+                  {#each getReferenceDetails(item.id).sources as source}
+                    <div class="reference-item">{source}</div>
+                  {/each}
+                </div>
+              {/if}
             </li>
           {/each}
         </ul>
@@ -225,9 +218,6 @@
   }
 
   .result-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 1rem;
     margin-bottom: 0.5rem;
     background-color: #1a1a1a;
@@ -240,6 +230,13 @@
     background-color: #222;
     border-color: #444;
     transform: translateX(4px);
+  }
+
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
   }
 
   .item-info {
@@ -259,65 +256,40 @@
     color: #888;
   }
 
-  .item-meta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
   .reference-count {
     padding: 0.4rem 0.8rem;
     background-color: #333;
     border-radius: 6px;
     font-size: 0.9rem;
     color: #888;
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
-    position: relative;
-    cursor: default;
+    flex-shrink: 0;
   }
 
   .reference-count.has-references {
     background-color: #667eea22;
     color: #667eea;
     border: 1px solid #667eea44;
-    cursor: help;
   }
 
-  .tooltip {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    margin-bottom: 8px;
-    background-color: #1a1a1a;
-    border: 1px solid #667eea;
-    border-radius: 6px;
-    padding: 0.75rem;
-    min-width: 250px;
-    max-width: 350px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    z-index: 100;
-    transition: opacity 0.2s, visibility 0.2s;
-    pointer-events: none;
+  .references {
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #333;
   }
 
-  .reference-count.has-references:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  .tooltip-item {
-    color: #e0e0e0;
+  .reference-item {
+    color: #aaa;
     font-size: 0.85rem;
-    line-height: 1.6;
-    padding: 0.25rem 0;
-    white-space: nowrap;
+    line-height: 1.8;
+    padding: 0.15rem 0;
   }
 
-  .tooltip-item:not(:last-child) {
-    border-bottom: 1px solid #333;
+  .reference-item::before {
+    content: "→ ";
+    color: #667eea;
+    margin-right: 0.25rem;
   }
 
   @media (max-width: 600px) {
@@ -325,15 +297,14 @@
       font-size: 2rem;
     }
 
-    .result-item {
+    .item-header {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.75rem;
+      gap: 0.5rem;
     }
 
-    .item-meta {
-      width: 100%;
-      justify-content: space-between;
+    .reference-count {
+      align-self: flex-start;
     }
   }
 </style>
