@@ -9,6 +9,7 @@
   let referenceCounts = new Map<string, ReferenceDetails>();
   let loading = true;
   let error: string | null = null;
+  let searchFocused = false;
 
   // Reactive filtered items based on search query
   $: filteredItems = filterItemsByName(items, searchQuery);
@@ -31,7 +32,7 @@
 </script>
 
 <main>
-  <header>
+  <header class:compact={searchFocused}>
     <h1>Arc Raiders Item Search</h1>
     <p class="subtitle">Search items and see their usage in hideout modules and projects</p>
   </header>
@@ -54,6 +55,8 @@
         placeholder="Search items by name..."
         class="search-input"
         autofocus
+        on:focus={() => searchFocused = true}
+        on:blur={() => searchFocused = false}
       />
     </div>
 
@@ -297,8 +300,41 @@
   }
 
   @media (max-width: 600px) {
+    main {
+      padding: 1rem 0.75rem;
+    }
+
+    header {
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    header.compact {
+      margin-bottom: 0.5rem;
+    }
+
     h1 {
-      font-size: 2rem;
+      font-size: 1.5rem;
+      margin: 0 0 0.25rem 0;
+      transition: all 0.3s ease;
+    }
+
+    header.compact h1 {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+
+    header.compact .subtitle {
+      display: none;
+    }
+
+    .search-container {
+      padding: 0.5rem 0;
     }
 
     .item-header {
