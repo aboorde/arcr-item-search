@@ -58,4 +58,6 @@ export interface ItemWithCount {
 export interface ReferenceDetails {
   count: number;
   sources: string[];
+  totalQuantity: number;
+  quantityBySource: Record<string, number>;
 }

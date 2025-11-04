@@ -13,12 +13,22 @@ export function buildReferenceCount(
   for (const module of hideoutModules) {
     for (const level of module.levels) {
       for (const requirement of level.requirementItemIds) {
-        const current = referenceMap.get(requirement.itemId) || { count: 0, sources: [] };
+        const current = referenceMap.get(requirement.itemId) || { 
+          count: 0, 
+          sources: [], 
+          totalQuantity: 0, 
+          quantityBySource: {} 
+        };
         const sourceName = `${module.name} (Level ${level.level})`;
 
         referenceMap.set(requirement.itemId, {
           count: current.count + 1,
-          sources: [...current.sources, sourceName]
+          sources: [...current.sources, sourceName],
+          totalQuantity: current.totalQuantity + requirement.quantity,
+          quantityBySource: {
+            ...current.quantityBySource,
+            [sourceName]: requirement.quantity
+          }
         });
       }
     }
@@ -28,12 +38,22 @@ export function buildReferenceCount(
   for (const project of projects) {
     for (const phase of project.phases) {
       for (const requirement of phase.requirementItemIds) {
-        const current = referenceMap.get(requirement.itemId) || { count: 0, sources: [] };
+        const current = referenceMap.get(requirement.itemId) || { 
+          count: 0, 
+          sources: [], 
+          totalQuantity: 0, 
+          quantityBySource: {} 
+        };
         const sourceName = `${project.name} (${phase.name})`;
 
         referenceMap.set(requirement.itemId, {
           count: current.count + 1,
-          sources: [...current.sources, sourceName]
+          sources: [...current.sources, sourceName],
+          totalQuantity: current.totalQuantity + requirement.quantity,
+          quantityBySource: {
+            ...current.quantityBySource,
+            [sourceName]: requirement.quantity
+          }
         });
       }
     }
