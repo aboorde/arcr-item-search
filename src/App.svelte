@@ -33,7 +33,7 @@
   });
 
   function getReferenceDetails(itemId: string): ReferenceDetails {
-    return referenceCounts.get(itemId) || { count: 0, sources: [] };
+    return referenceCounts.get(itemId) || { count: 0, sources: [], totalQuantity: 0, quantityBySource: {} };
   }
 </script>
 
@@ -92,14 +92,24 @@
                   <span class="item-name">{item.name}</span>
                   <span class="item-type">{item.type}</span>
                 </div>
-                <span class="reference-count" class:has-references={getReferenceDetails(item.id).count > 0}>
-                  {getReferenceDetails(item.id).count}×
-                </span>
+                <div class="reference-stats">
+                  <span class="reference-count" class:has-references={getReferenceDetails(item.id).count > 0}>
+                    {getReferenceDetails(item.id).count}×
+                  </span>
+                  {#if getReferenceDetails(item.id).totalQuantity > 0}
+                    <span class="total-quantity" class:has-references={getReferenceDetails(item.id).totalQuantity > 0}>
+                      {getReferenceDetails(item.id).totalQuantity} needed
+                    </span>
+                  {/if}
+                </div>
               </div>
               {#if getReferenceDetails(item.id).count > 0}
                 <div class="references">
                   {#each getReferenceDetails(item.id).sources as source}
-                    <div class="reference-item">{source}</div>
+                    <div class="reference-item">
+                      <span class="source-name">{source}</span>
+                      <span class="source-quantity">×{getReferenceDetails(item.id).quantityBySource[source]}</span>
+                    </div>
                   {/each}
                 </div>
               {/if}
@@ -311,6 +321,29 @@
     border: 1px solid #667eea44;
   }
 
+  .reference-stats {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .total-quantity {
+    padding: 0.4rem 0.8rem;
+    background-color: #333;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .total-quantity.has-references {
+    background-color: #22a06b22;
+    color: #22a06b;
+    border: 1px solid #22a06b44;
+  }
+
   .references {
     margin-top: 0.5rem;
     padding-top: 0.75rem;
@@ -318,16 +351,25 @@
   }
 
   .reference-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #aaa;
     font-size: 0.85rem;
     line-height: 1.8;
     padding: 0.15rem 0;
   }
 
-  .reference-item::before {
+  .source-name::before {
     content: "→ ";
     color: #667eea;
     margin-right: 0.25rem;
+  }
+
+  .source-quantity {
+    color: #22a06b;
+    font-weight: 600;
+    font-size: 0.8rem;
   }
 
   footer {
@@ -392,8 +434,9 @@
       gap: 0.5rem;
     }
 
-    .reference-count {
+    .reference-stats {
       align-self: flex-start;
+      flex-wrap: wrap;
     }
   }
 </style>
