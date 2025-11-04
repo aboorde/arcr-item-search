@@ -181,10 +181,13 @@
     background-color: #0a0a0a;
     padding: 1rem 0;
     z-index: 10;
+    width: 100%;
+    max-width: 900px;
   }
 
   .search-input {
     width: 100%;
+    max-width: 100%;
     padding: 1rem;
     font-size: 1.1rem;
     border: 2px solid #333;
@@ -193,6 +196,7 @@
     color: #e0e0e0;
     box-sizing: border-box;
     transition: border-color 0.2s;
+    min-width: 0;
   }
 
   .search-input:focus {
