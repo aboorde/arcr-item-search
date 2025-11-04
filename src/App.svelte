@@ -243,17 +243,21 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    text-align: left;
+    align-items: flex-start;
   }
 
   .item-name {
     font-size: 1.1rem;
     font-weight: 500;
     color: #e0e0e0;
+    text-align: left;
   }
 
   .item-type {
     font-size: 0.85rem;
     color: #888;
+    text-align: left;
   }
 
   .reference-count {
