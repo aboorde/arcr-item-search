@@ -112,9 +112,17 @@
 </main>
 
 <style>
+  :global(html) {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
   :global(body) {
     margin: 0;
     padding: 0;
+    width: 100%;
+    min-width: 100vw;
+    overflow-x: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
@@ -122,13 +130,21 @@
     color: #e0e0e0;
   }
 
+  :global(#app) {
+    width: 100%;
+    min-width: 100vw;
+    overflow-x: hidden;
+  }
+
   main {
     width: 100%;
+    min-width: 100%;
     max-width: 900px;
     margin: 0 auto;
     padding: 2rem 1rem;
     min-height: 100vh;
     box-sizing: border-box;
+    overflow-x: hidden;
   }
 
   header {
@@ -212,6 +228,8 @@
     color: #888;
     margin-bottom: 1rem;
     font-size: 0.9rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .results-container {
