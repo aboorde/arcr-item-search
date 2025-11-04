@@ -108,6 +108,12 @@
         </ul>
       {/if}
     </div>
+
+    <footer>
+      <a href="https://github.com/Soph/arcr-item-search" target="_blank" rel="noopener noreferrer">
+        View on GitHub
+      </a>
+    </footer>
   {/if}
 </main>
 
@@ -322,6 +328,24 @@
     content: "→ ";
     color: #667eea;
     margin-right: 0.25rem;
+  }
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+    text-align: center;
+  }
+
+  footer a {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  footer a:hover {
+    color: #667eea;
   }
 
   @media (max-width: 600px) {
