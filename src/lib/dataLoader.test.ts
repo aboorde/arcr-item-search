@@ -40,8 +40,7 @@ const mockItem: Item = {
   rarity: 'Common',
   value: 100,
   weightKg: 1.5,
-  stackSize: 100,
-  imageFilename: 'test.png'
+  stackSize: 100
 };
 
 const mockHideoutModule: HideoutModule = {
@@ -150,7 +149,7 @@ describe('dataLoader', () => {
         json: async () => [
           mockItem,
           { id: 'invalid', name: 'Not an object' }, // Invalid
-          mockItem
+          { ...mockItem, id: 'item-2' }
         ]
       });
 

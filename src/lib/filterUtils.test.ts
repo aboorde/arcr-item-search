@@ -3,7 +3,6 @@ import {
   getUniqueRarities,
   getUniqueTypes,
   applyFilters,
-  getItemImageUrl,
   getRarityColor,
   formatWeight,
   formatValue
@@ -20,7 +19,6 @@ const createMockItem = (overrides: Partial<Item> = {}): Item => ({
   value: 100,
   weightKg: 1.5,
   stackSize: 100,
-  imageFilename: 'test.png',
   ...overrides
 });
 
@@ -112,25 +110,6 @@ describe('filterUtils', () => {
       const filters: FilterOptions = { rarities: ['Legendary'], types: [] };
       const result = applyFilters(items, filters);
       expect(result).toHaveLength(0);
-    });
-  });
-
-  describe('getItemImageUrl', () => {
-    it('should construct correct image URL from filename', () => {
-      const result = getItemImageUrl('fabric.png');
-      expect(result).toBe('https://cdn.arctracker.io/items/fabric.png');
-    });
-
-    it('should return full URL as-is if already provided', () => {
-      const fullUrl = 'https://cdn.arctracker.io/items/fabric.png';
-      const result = getItemImageUrl(fullUrl);
-      expect(result).toBe(fullUrl);
-    });
-
-    it('should handle http URLs', () => {
-      const httpUrl = 'http://example.com/item.png';
-      const result = getItemImageUrl(httpUrl);
-      expect(result).toBe(httpUrl);
     });
   });
 

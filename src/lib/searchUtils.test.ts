@@ -40,7 +40,6 @@ const createMockItem = (overrides: Partial<Item> = {}): Item => ({
   value: 100,
   weightKg: 1.5,
   stackSize: 100,
-  imageFilename: 'test.png',
   ...overrides
 });
 

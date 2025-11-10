@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getRarityColor, getItemImageUrl } from '../../lib/filterUtils';
+  import { getRarityColor } from '../../lib/filterUtils';
   import type { Item, ReferenceDetails } from '../../types';
   import ItemStats from './ItemStats.svelte';
 
@@ -10,16 +10,6 @@
 </script>
 
 <div class="flex flex-col md:flex-row gap-3 md:gap-4">
-  <!-- Item Image -->
-  {#if item.imageFilename}
-    <img
-      src={getItemImageUrl(item.imageFilename)}
-      alt={item.name.en}
-      class="w-20 h-20 md:w-24 md:h-24 object-contain flex-shrink-0 bg-zinc-950 border border-zinc-800 rounded-lg p-2"
-      loading="lazy"
-    />
-  {/if}
-
   <!-- Item Content -->
   <div class="flex-1 min-w-0">
     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 md:gap-4">

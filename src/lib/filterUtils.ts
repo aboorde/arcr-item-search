@@ -48,21 +48,6 @@ export function applyFilters(items: Item[], filters: FilterOptions): Item[] {
 }
 
 /**
- * Gets the item image URL
- * If imageFilename is already a full URL, return it as-is
- * Otherwise, prepend the ArcTracker CDN base URL
- */
-export function getItemImageUrl(imageFilename: string): string {
-  // If it's already a full URL, return it
-  if (imageFilename.startsWith('http://') || imageFilename.startsWith('https://')) {
-    return imageFilename;
-  }
-  // Otherwise, prepend the CDN base URL
-  const baseUrl = 'https://cdn.arctracker.io/items/';
-  return `${baseUrl}${imageFilename}`;
-}
-
-/**
  * Gets the rarity color for styling
  */
 export function getRarityColor(rarity: string): string {
